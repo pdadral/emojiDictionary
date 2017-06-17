@@ -12,7 +12,9 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
 
     @IBOutlet weak var dicTableView: UITableView!
     
-    var emojis = ["😀","🤡","🙏","💇🏻‍♂️","🌍","🍎","🇮🇳","👍"]
+    var emojis : [Emoji] = []
+    
+    
     
     
     override func viewDidLoad() {
@@ -21,6 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         
         dicTableView.dataSource = self
         dicTableView.delegate = self
+        emojis = makeEmojiArray()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,10 +33,10 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(indexPath.row)
-        print(indexPath.row)
+        
         let cell = UITableViewCell()
-        cell.textLabel?.text = emojis[indexPath.row]
+        let emoji = emojis[indexPath.row]
+        cell.textLabel?.text = emoji.stringEmoji
         return cell
     }
     
@@ -45,7 +48,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let defVC = segue.destination as! DefinationViewController
-        defVC.emoji = sender as! String
+        defVC.emoji = sender as! Emoji
     }
     
     override func didReceiveMemoryWarning() {
@@ -53,6 +56,27 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         // Dispose of any resources that can be recreated.
     }
 
+    func makeEmojiArray() -> [Emoji]{
+        let emoji1 = Emoji()
+        emoji1.stringEmoji = "😎"
+        emoji1.birthYear = 2010
+        emoji1.category = "Smiley"
+        emoji1.defination = "A smiley face with sunglasses"
+        
+        let emoji2 = Emoji()
+        emoji2.stringEmoji = "🍎"
+        emoji2.birthYear = 1700
+        emoji2.category = "Fruit"
+        emoji2.defination = "I am an apple"
+        
+        let emoji3 = Emoji()
+        emoji3.stringEmoji = "🙏"
+        emoji3.birthYear = 000
+        emoji3.category = "Greeting"
+        emoji3.defination = "Good morining"
+        
+        return[emoji1,emoji2,emoji3]
+    }
 
 }
 
